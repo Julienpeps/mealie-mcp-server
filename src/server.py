@@ -49,7 +49,9 @@ register_all_tools(mcp, mealie)
 if __name__ == "__main__":
     try:
         logger.info({"message": "Starting Mealie MCP Server"})
-        mcp.run(transport="http", port=8000)
+        mcp.settings.host = "0.0.0.0"
+        mcp.settings.port = 8000
+        mcp.run(transport="http")
     except Exception as e:
         logger.critical(
             {"message": "Fatal error in Mealie MCP Server", "error": str(e)}
