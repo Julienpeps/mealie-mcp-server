@@ -3,10 +3,22 @@ from typing import Any, Dict, List, Optional
 from pydantic import BaseModel, Field
 
 
+class IngredientUnit(BaseModel):
+    id: Optional[str] = None
+    name: Optional[str] = None
+    abbreviation: Optional[str] = None
+
+
+class IngredientFood(BaseModel):
+    id: Optional[str] = None
+    name: Optional[str] = None
+    description: Optional[str] = None
+
+
 class RecipeIngredient(BaseModel):
     quantity: Optional[float] = 0
-    unit: Optional[str] = None
-    food: Optional[str] = None
+    unit: Optional[IngredientUnit] = None
+    food: Optional[IngredientFood] = None
     note: Optional[str] = ""
     isFood: Optional[bool] = True
     disableAmount: Optional[bool] = False
