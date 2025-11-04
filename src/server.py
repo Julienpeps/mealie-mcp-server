@@ -4,6 +4,7 @@ import traceback
 
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
+from starlette.responses import JSONResponse
 
 from mealie import MealieFetcher
 from prompts import register_prompts
@@ -25,6 +26,10 @@ logging.basicConfig(
 logger = logging.getLogger("mealie-mcp")
 
 mcp = FastMCP("mealie", host="0.0.0.0", port=8000)
+
+@mcp.custom_route("/health", methods=["GET"])
+async def health_check(request):
+    return JSONResponse({"status": "healthy", "service": "mcp-server"})
 
 MEALIE_BASE_URL = os.getenv("MEALIE_BASE_URL")
 MEALIE_API_KEY = os.getenv("MEALIE_API_KEY")
